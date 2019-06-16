@@ -10,11 +10,11 @@ export default class PriceLine extends Component {
             lastVolume: 0
         }
         this.hitbtcSocket = new WebSocket('wss://api.hitbtc.com/api/2/ws')
-        this.subscribeTicker = this.subscribeTicker.bind(this)
+        //this.subscribeTicker = this.subscribeTicker.bind(this)
       }
 
       componentDidMount() {
-        this.hitbtcSocket.onopen = () => this.subscribeTicker(this.hitbtcSocket, 'subscribeTicker', {symbol: this.props.symbol})
+        this.hitbtcSocket.onopen = () => this.subscribeTicker('subscribeTicker', {symbol: this.props.symbol})
         this.hitbtcSocket.onmessage = msg => {
             const data = JSON.parse(msg.data)
             if(data.params !== undefined) {
@@ -27,10 +27,11 @@ export default class PriceLine extends Component {
         }
     }
 
-    subscribeTicker(hitbtcWs, method, params = {}) {
-        if (hitbtcWs.readyState === 1) {
+    subscribeTicker(method, params = {}) {
+        const hitbtcSocket = new WebSocket('wss://api.hitbtc.com/api/2/ws')
+        if (hitbtcSocket.readyState === 1) {
             const msg = JSON.stringify({method, params, id: 123})
-            hitbtcWs.send(msg)
+            hitbtcSocket.send(msg)
         }
       }
 

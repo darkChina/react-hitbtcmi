@@ -28,9 +28,10 @@ export default class PriceLine extends Component {
     }
 
     subscribeTicker(ws, method, params = {}) {
+        let id = 1;
         if (ws.readyState === 1) {
-            const msg = JSON.stringify({method, params, id: 123})
-            ws.send(msg)
+            const msg = JSON.stringify({method, params, id: id++});
+            ws.send(msg);
         }
       }
 

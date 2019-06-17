@@ -8,28 +8,9 @@ export default class PriceTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            symbols: ['BCNBTC',
-            'BTCUSD',
-            'DASHBTC',
-            'DOGEBTC',
-            'DOGEUSD',
-            'EMCBTC',
-            'ETHBTC',
-            'LSKBTC',
-            'LTCBTC',
-            'LTCUSD',
-            'NXTBTC',
-            'SBDBTC',
-            'SCBTC',
-            'STEEMBTC',
-            'XDNBTC',
-            'XEMBTC']
+            symbols: symbols.map(symbol => symbol.id)
         }
     }
-
-    // componentDidMount() {
-    //     this.setState({symbols: symbols.map(symbol => symbol.id)});       
-    // }
 
     render() {
         return (

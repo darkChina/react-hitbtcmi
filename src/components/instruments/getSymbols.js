@@ -10,7 +10,10 @@ hitbtcSocket.onopen = () => arr.forEach(s => {
     subscribeTicker('subscribeTicker', {symbol: s});
 });
 
-let quoteArr = ['current name'];
+let quoteArr = [{
+    name: 'name',
+    price: 0
+}];
 hitbtcSocket.onmessage = msg => {
     const data = JSON.parse(msg.data);
     if(data.params !== undefined) {
@@ -32,16 +35,19 @@ hitbtcSocket.onmessage = msg => {
         if(!quoteArr.includes(data.params.symbol)) {
             quoteArr.push(data.params.symbol);
         } else {
-            quoteArr[0] === data.params.symbol;
-        }
+            quoteArr[0].name = data.params.symbol;
+            quoteArr[0].price = data.params.last;
 
+        }
+            
+        
         console.log(quoteArr);
-        console.log(quoteArr.length);
-        if(quoteArr.length == 10) {
-            hitbtcSocket.close();
-            console.log(quoteArr);
+        // console.log(quoteArr.length);
+        // if(quoteArr.length == 10) {
+        //     hitbtcSocket.close();
+        //     console.log(quoteArr);
 
-        }
+        // }
     }
 }
 

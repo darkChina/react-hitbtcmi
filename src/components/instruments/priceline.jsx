@@ -14,7 +14,7 @@ export default class PriceLine extends Component {
       }
 
       componentDidMount() {
-        this.hitbtcSocket.onopen = () => this.subscribeTicker( this.hitbtcSocket, 'subscribeTicker', {symbol: this.props.symbol})
+        this.hitbtcSocket.onopen = () => this.subscribeTicker(this.hitbtcSocket, 'subscribeTicker', {symbol: this.props.symbol})
         this.hitbtcSocket.onmessage = msg => {
             const data = JSON.parse(msg.data)
             if(data.params !== undefined) {

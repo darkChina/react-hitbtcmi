@@ -34,11 +34,13 @@ export default class PriceLine extends Component {
     //   }
 
       render() {
+        console.log(this.props)
+
           return (
             <Row>
-                <Col>{this.props.symbolName}</Col>
-                <Col>{this.props.lastPrice}</Col>
-                <Col>{this.props.lastVolume}</Col>
+                <Col>{this.props.symbol}</Col>
+                <Col>{this.props.last}</Col>
+                <Col>{this.props.volume}</Col>
             </Row>
           )
       }

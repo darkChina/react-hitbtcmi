@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, Container, Row, Col } from 'react-bootstrap';
-import PriceTable from './pricetable'
+import ShortTable from './ShortTable'
 
 export default class Instruments extends Component {    
       
@@ -31,7 +31,7 @@ export default class Instruments extends Component {
                         <Col>Volume</Col>
                     </Row>
 
-                    <PriceTable />
+                    <ShortTable symbol='BTCUSD' />
                 </Container>                
             </div>
         );

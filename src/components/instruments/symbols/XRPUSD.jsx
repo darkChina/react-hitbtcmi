@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 
-const PriceLine = props => {
+const XRPUSD = props => {
           return (
             <Row>
                 <Col>{props.symbol}</Col>
@@ -11,4 +11,4 @@ const PriceLine = props => {
           )     
 }
 
-export default PriceLine
+export default XRPUSD

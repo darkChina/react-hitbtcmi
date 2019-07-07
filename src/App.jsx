@@ -1,5 +1,5 @@
 import React from 'react';
-import Instruments from './components/instruments/instruments'
+import Instruments from './containers/Instruments'
 import './App.css';
 
 function App() {

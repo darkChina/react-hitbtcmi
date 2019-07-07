@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PriceLine from './priceline'
+import PriceLine from '../priceline'
 
 const ws = new WebSocket('wss://api.hitbtc.com/api/2/ws')
 const symbols = ['BTCUSD', 'ETHUSD']
@@ -30,8 +30,8 @@ const ShortTable = props => {
             const index = priceLines.findIndex(e => data.params.symbol === e.props.symbol)
             console.log(index)
             if(priceLines[index].props.symbol === data.params.symbol) {
-                setLastPrice = data.params.last
-                setLastVolume = data.params.volume
+                // setLastPrice = data.params.last
+                // setLastVolume = data.params.volume
                 console.log(priceLines[index])
             }
                    

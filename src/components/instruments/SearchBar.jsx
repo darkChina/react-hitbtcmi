@@ -6,25 +6,22 @@ class SearchBar extends Component {
 constructor(props) {
     super(props)
     this.state = {
-        value: ''
+        symbolsFound: []
     }
     this.changeHandler = this.changeHandler.bind(this)
 }
 
 changeHandler(event) {
-    this.setState({value: event.target.value})
-}
-
-compareSymbols() {
-    console.log(this.state.value)
+    event.preventDefault()
+    const find = Symbols.filter(s => s.indexOf(event.target.value) !== -1)
+    this.setState({symbolsFound: event.target.value !== '' ? find : []})   
 }
 
 render() {
     return (
         <div>
             <input type='text' placeholder='Search...' onChange={this.changeHandler}/>
-            <h1>{this.state.value || 'default'}</h1>
-            <button onClick={this.compareSymbols}>Compare</button>
+            <h3>{this.state.symbolsFound.map(s => s + ' ')}</h3>
         </div>
     )
 }

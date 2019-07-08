@@ -3,6 +3,7 @@ import PriceTable from '../components/Instruments/PriceTable'
 import NavigationBar from '../components/Instruments/NavigationBar'
 import NavCurrencies from '../components/Instruments/NavCurrencies'
 import SearchBar from '../components/Instruments/SearchBar'
+import './Instruments.css'
 
 class Instruments extends Component{
 
@@ -16,16 +17,16 @@ class Instruments extends Component{
 
     clickHandler(currency) {
         this.setState({currency})
-        console.log(this.state.currency)
+        console.log('Instruments', this.state.currency)
     }
 
     render() {
         return (
-            <div>
+            <div className='Instruments'>
                 <SearchBar />
                 <NavigationBar />
                 <NavCurrencies handleClick={this.clickHandler} />
-                <PriceTable />
+                <PriceTable quoteCurrency={this.state.currency}/>
             </div>
         )
     }    

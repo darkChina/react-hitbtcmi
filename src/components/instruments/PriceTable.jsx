@@ -7,10 +7,17 @@ export default class PriceTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-           symbols: Symbols.map(s => Object.assign({name: s, last: 0, volume: 0}))
+           symbols: Symbols.map(s => Object.assign({name: s, last: 0, volume: 0})),
+           quoteCurrency: props.quoteCurrency
         }
         this.ws = new WebSocket('wss://api.hitbtc.com/api/2/ws')
     }
+
+    // quoteCurrencySwitcher(props) {
+    //     switch(props.quoteCurrency) {
+    //         case 'BTC':
+    //     }
+    // }
 
     subscribeTicker(params) {
         let id = 1;
@@ -37,8 +44,10 @@ export default class PriceTable extends Component {
     }
 
     render() {
+        console.log('Pricetable', this.state.quoteCurrency)
         return (
             <div>
+                <h3>{this.state.quoteCurrency}</h3>
                 <Row>
                     <Col>Name</Col>
                     <Col>Price</Col>

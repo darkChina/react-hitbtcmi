@@ -1,31 +1,23 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Symbols from './symbols.json'
 
-class SearchBar extends Component {
+const SearchBar = () => {
+const [symbolsFound, findSymbols] = useState([])
 
-constructor(props) {
-    super(props)
-    this.state = {
-        symbolsFound: []
-    }
-    this.changeHandler = this.changeHandler.bind(this)
-}
 
-changeHandler(event) {
+const changeHandler = event => {
     event.preventDefault()
     const find = Symbols.filter(s => s.indexOf(event.target.value) !== -1)
-    this.setState({symbolsFound: event.target.value !== '' ? find : []})   
+    findSymbols(event.target.value !== '' ? find : [])   
 }
 
-render() {
     return (
         <div>
-            <input type='text' placeholder='Search...' onChange={this.changeHandler}/>
-            <h3>{this.state.symbolsFound.map(s => s + ' ')}</h3>
+            <input type='text' placeholder='Search...' onChange={changeHandler}/>
+            <h3>{symbolsFound.map(s => s + ' ')}</h3>
         </div>
     )
-}
-    
+   
 }
 
 export default SearchBar

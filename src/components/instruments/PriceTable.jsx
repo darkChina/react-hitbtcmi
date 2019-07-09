@@ -13,14 +13,8 @@ const subscribeTicker = params => {
     }
 }
 
-
-
 const PriceTable = props => {
-    
-    const [sym, setSymbols] = useState(symbols)
-    
-    
-   
+        const [sym, setSymbols] = useState(symbols)
         let index
         const changedSymbols = [...sym]
 
@@ -49,7 +43,6 @@ const PriceTable = props => {
             </div>
         )
     }
-
 
 export default PriceTable
  

@@ -17,16 +17,17 @@ class Instruments extends Component{
 
     clickHandler(currency) {
         this.setState({currency})
-        console.log('Instruments', this.state.currency)
     }
 
     render() {
+        console.log('render Instruments.jsx', this.state.currency)
         return (
             <div className='Instruments'>
                 <SearchBar />
                 <NavigationBar />
                 <NavCurrencies handleClick={this.clickHandler} />
                 <PriceTable quoteCurrency={this.state.currency}/>
+                <button onClick={() => console.log(this.state.currency)}>state.currency</button>
             </div>
         )
     }    

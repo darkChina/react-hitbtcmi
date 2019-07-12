@@ -1,28 +1,27 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Nav,  Row } from 'react-bootstrap'
 
 
-const symbolColumns = ['BTC', 'USD', 'ETH', 'TUSD', 'DAI', 'EURS', 'EOS', 'GUSD', 'PAX', 'USDC', 'KRWB', 'EOSDT', 'EOSDT', 'Favorites']
+const symbolColumns = ['Top 20', 'BTC', 'USD', 'ETH', 'TUSD', 'DAI', 'EURS', 'EOS', 'GUSD', 'PAX', 'USDC', 'KRWB', 'EOSDT', 'Favorites']
 
-class NavCurrencies extends Component {
+const NavCurrencies = props => {
 
-    clickHandler(currency) {
-        this.props.handleClick(currency)
+    const clickHandler = currency => {
+        props.handleClick(currency)
     }
 
-    render() {
-        return (
-            <Row>
-                {symbolColumns.map((name, i) => {
-                    return (
-                        <Nav.Link key={i} onClick={() => this.clickHandler(name)}>
-                            {name}
-                        </Nav.Link>
-                    );
-                })}
-            </Row>
-        )
-    }
-}  
+    return (
+        <Row>
+            {symbolColumns.map((name, i) => {
+                return (
+                    <Nav.Link key={i} onClick={() => clickHandler(name)}>
+                        {name}
+                    </Nav.Link>
+                );
+            })}
+        </Row>
+    )
+}
+
 
 export default NavCurrencies

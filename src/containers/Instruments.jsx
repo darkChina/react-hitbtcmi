@@ -20,14 +20,12 @@ class Instruments extends Component{
     }
 
     render() {
-        console.log('render Instruments.jsx', this.state.currency)
         return (
             <div className='Instruments'>
                 <SearchBar />
                 <NavigationBar />
                 <NavCurrencies handleClick={this.clickHandler} />
                 <PriceTable quoteCurrency={this.state.currency}/>
-                <button onClick={() => console.log(this.state.currency)}>state.currency</button>
             </div>
         )
     }    

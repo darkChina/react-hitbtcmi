@@ -19,6 +19,8 @@ class Instruments extends Component{
         this.setState({currency})
     }
 
+
+
     render() {
         return (
             <div className='Instruments'>

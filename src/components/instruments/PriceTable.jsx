@@ -17,9 +17,9 @@ const subscribeTicker = params => {
 
 const PriceTable = ({ quoteCurrency }) => {
     
-const symbols = Symbols.map(s => Object.assign({name: s, last: 0, volume: 0}))
+const symbols = Symbols.map(s => Object.assign({id: s.id, quoteCurrency: s.quoteCurrency, last: 0, volume: 0}))
 
-    ws.onopen = () => symbols.forEach(s => subscribeTicker({symbol: s.name}))
+    ws.onopen = () => symbols.forEach(s => subscribeTicker({symbol: s.id}))
         
     const [sym, setSymbols] = useState(symbols)
     let changedSymbols = [...sym]
@@ -28,7 +28,7 @@ const symbols = Symbols.map(s => Object.assign({name: s, last: 0, volume: 0}))
     ws.onmessage = msg => {
         const data = JSON.parse(msg.data)
         if(data.params !== undefined) {
-            index = changedSymbols.findIndex(s => s.name === data.params.symbol)
+            index = changedSymbols.findIndex(s => s.id === data.params.symbol)
             changedSymbols[index].last = data.params.last
             changedSymbols[index].volume = data.params.volume
             setSymbols(changedSymbols)     
@@ -39,14 +39,12 @@ const symbols = Symbols.map(s => Object.assign({name: s, last: 0, volume: 0}))
 
 
     const renderSwitcher = currency => {
-        const find = sym.filter(s => s.name.indexOf(currency) !== -1).slice(0, 20)
-        return find.map((symbol, i) => <PriceLine key={i} symbol={symbol.name} last={symbol.last} volume={symbol.volume} />)
+        const find = sym.filter(s => s.quoteCurrency.indexOf(currency) !== -1).slice(0, 20)
+        return find.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} />)
     }
 
     return (
         <div>
-            <h3>{quoteCurrency}</h3>
-            <button onClick={() => console.log(symbols)}>Symbols</button>
             <Row>
                 <Col>Name</Col>
                 <Col>Price</Col>

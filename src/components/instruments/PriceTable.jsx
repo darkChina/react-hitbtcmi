@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import PriceLine from './PriceLine/PriceLine'
+import Star from '../Star/Star'
 import Symbols from './symbols.json'
 
 
@@ -29,8 +30,11 @@ const symbols = Symbols.map(s => Object.assign({id: s.id, quoteCurrency: s.quote
         const data = JSON.parse(msg.data)
         if(data.params !== undefined) {
             index = changedSymbols.findIndex(s => s.id === data.params.symbol)
+            if(data.params.symbol === 'DASHBTC') {
+                console.log(data.params)
+            }
             changedSymbols[index].last = data.params.last
-            changedSymbols[index].volume = data.params.volume
+            changedSymbols[index].volume = data.params.volumeQuote
             setSymbols(changedSymbols)     
         }
     }
@@ -39,16 +43,18 @@ const symbols = Symbols.map(s => Object.assign({id: s.id, quoteCurrency: s.quote
 
 
     const renderSwitcher = currency => {
-        const find = sym.filter(s => s.quoteCurrency.indexOf(currency) !== -1).slice(0, 20)
-        return find.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} />)
+        const find = sym.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
+        const sorted = find.sort((a, b) => b.volume - a.volume).slice(0, 20)
+        return sorted.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} />)
     }
 
     return (
         <div>
+            <Star/>
             <Row>
                 <Col>Name</Col>
                 <Col>Price</Col>
-                <Col>Volume</Col>
+                <Col>Volume (Quote)</Col>
             </Row>
             {
                 renderSwitcher(quoteCurrency)

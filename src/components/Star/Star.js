@@ -1,18 +1,31 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './Star.css'
 import goldStar from './gold_star.png'
 import blackStar from './black_star.png'
 
 
-const Star = () => {
-    let selected = false
+class Star extends Component {
+   constructor(props) {
+       super(props)
+       this.state = {
+           selected: false
+       }
+       this.clickHandler = this.clickHandler.bind(this)
+   }
+   
 
-    const select = () => {
-        console.log(selected)
+   clickHandler() {
+        const select = this.state.selected
+        this.setState({selected: !select})
     }
-    return <div onClick={select}>
-                <img className='goldStar' src={selected ? goldStar : blackStar} alt='Star' />
-            </div>
+
+    render() {
+        return <div onClick={this.clickHandler}>
+            <img className='star' src={this.state.selected ? goldStar : blackStar} alt='Star' />
+        </div>
+    }
+    
 }
 
 export default Star
+

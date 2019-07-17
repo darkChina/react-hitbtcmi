@@ -17,7 +17,6 @@ const changeHandler = event => {
             <h3>{symbolsFound.map(s => s + ' ')}</h3>
         </div>
     )
-   
 }
 
 export default SearchBar

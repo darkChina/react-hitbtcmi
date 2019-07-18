@@ -15,6 +15,7 @@ class Star extends Component {
    
 
    clickHandler() {
+        this.props.isFavorite()
         const select = this.state.selected
         this.setState({selected: !select})
     }

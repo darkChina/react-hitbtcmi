@@ -16,9 +16,22 @@ const subscribeTicker = params => {
     }
 }
 
+const markAsFavorite = () => {
+    console.log('favorite')
+}
+
+
+
 const PriceTable = ({ quoteCurrency }) => {
     
-const symbols = Symbols.map(s => Object.assign({id: s.id, quoteCurrency: s.quoteCurrency, last: 0, volume: 0}))
+const symbols = Symbols.map(s => 
+    Object.assign({
+        id: s.id, 
+        quoteCurrency: s.quoteCurrency, 
+        last: 0, 
+        volume: 0, 
+        isFavorite: false
+    }))
 
     ws.onopen = () => symbols.forEach(s => subscribeTicker({symbol: s.id}))
         
@@ -41,24 +54,23 @@ const symbols = Symbols.map(s => Object.assign({id: s.id, quoteCurrency: s.quote
 
 
     const renderSwitcher = currency => {
-        if(currency === 'Top 20') {
-            console.log(currency)
-        }
-
-        if(currency === 'Favorites') {
-            console.log(currency)
-        }
-        const find = sym.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
-        const sorted = find.sort((a, b) => b.volume - a.volume).slice(0, 20)
-        return sorted.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} />)
+        let find
+        
+        if (currency === 'Favorites') {
+            find = [{id: 'FAV', quoteCurrency: 'fav', last: 0, volume: 0, isFavorite: false}]
+        } 
+            find = sym.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
+            const sorted = find.sort((a, b) => b.volume - a.volume).slice(0, 20)
+            return sorted.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} isFavorite={markAsFavorite}/>)
     }
 
     return (
         <div>
             <Row>
+                <Col>IsFavorite</Col>
                 <Col>Name</Col>
                 <Col>Price</Col>
-                <Col>Volume (Quote)</Col>
+                <Col>Volume ({quoteCurrency})</Col>
             </Row>
             {
                 renderSwitcher(quoteCurrency)

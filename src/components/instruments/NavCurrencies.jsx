@@ -2,7 +2,7 @@ import React from 'react'
 import { Nav,  Row } from 'react-bootstrap'
 
 
-const symbolColumns = ['Top 20', 'BTC', 'USD', 'ETH', 'TUSD', 'DAI', 'EURS', 'EOS', 'GUSD', 'PAX', 'USDC', 'KRWB', 'EOSDT', 'Favorites']
+const symbolColumns = ['USD', 'BTC', 'ETH', 'TUSD', 'DAI', 'EURS', 'EOS', 'GUSD', 'PAX', 'USDC', 'KRWB', 'EOSDT', 'Favorites']
 
 const NavCurrencies = props => {
 
@@ -11,7 +11,7 @@ const NavCurrencies = props => {
     }
 
     return (
-        <Row>
+        <Row className='navCurrencies'>
             {symbolColumns.map((name, i) => {
                 return (
                     <Nav.Link key={i} onClick={() => clickHandler(name)}>

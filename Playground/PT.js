@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import PriceLine from './PriceLine'
+import PriceLine from '../src/components/Instruments/PriceLine'
 import Symbols from './symbols.json'
 
 class PriceTable extends Component {
@@ -16,46 +16,40 @@ class PriceTable extends Component {
                     isFavorite: false
                 }))
         }
-        this.showSymbol = this.showSymbol.bind(this)
         this.renderSwitcher = this.renderSwitcher.bind(this)
         this.ws = new WebSocket('wss://api.hitbtc.com/api/2/ws')
         this.ws.onopen = () => this.state.symbols.forEach(s => this.subscribeTicker({symbol: s.id}))
         this.ws.onerror = err => console.log(err)
         this.ws.onmessage = msg => {
-            let changedSymbols = [...this.state.symbols]
+            let changedSymbols = [...sym]
             let index
             const data = JSON.parse(msg.data)
             if(data.params !== undefined) {
                 index = changedSymbols.findIndex(s => s.id === data.params.symbol)
                 changedSymbols[index].last = data.params.last
                 changedSymbols[index].volume = data.params.volumeQuote
-                this.setState({symbols: changedSymbols}) 
+                setSymbols(changedSymbols) 
             }
         }
     }
 
     subscribeTicker(params) {
         let id = 1;
-        if (this.ws.readyState === 1) {
+        if (ws.readyState === 1) {
             const msg = JSON.stringify({method: 'subscribeTicker', params, id: id++});
-            this.ws.send(msg);
+            ws.send(msg);
         }
     }
 
     renderSwitcher(currency) {
-        const find = this.state.symbols.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
+        const find = sym.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
         let sorted
         if(currency === 'Favorites') {
             sorted = find.filter(s => s.isFavorite === true)
         } else {
             sorted = find.sort((a, b) => b.volume - a.volume).slice(0, 10)
         }
-        //console.log(sorted)
-        return sorted.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} show={this.showSymbol}/>)
-    }
-
-    showSymbol(symbol) {
-        console.log(symbol)
+        return sorted.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume}/>)
     }
 
     render() {

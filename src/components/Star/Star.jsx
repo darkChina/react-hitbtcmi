@@ -10,22 +10,19 @@ class Star extends Component {
        this.state = {
            selected: false
        }
-       this.clickHandler = this.clickHandler.bind(this)
-   }
-   
-
-   clickHandler() {
-        this.props.isFavorite()
-        const select = this.state.selected
-        this.setState({selected: !select})
     }
+//        this.clickHandler = this.clickHandler.bind(this)
+//    }
+
+//    clickHandler() {
+//         this.props.favorite()
+//     }
 
     render() {
         return <div onClick={this.clickHandler}>
             <img className='star' src={this.state.selected ? goldStar : blackStar} alt='Star' />
         </div>
     }
-    
 }
 
 export default Star

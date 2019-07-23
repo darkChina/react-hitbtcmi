@@ -16,8 +16,9 @@ class PriceTable extends Component {
                     isFavorite: false
                 }))
         }
-        this.showSymbol = this.showSymbol.bind(this)
+        this.markAsFavorite = this.markAsFavorite.bind(this)
         this.renderSwitcher = this.renderSwitcher.bind(this)
+        this.showCurrency = this.showCurrency.bind(this)
         this.ws = new WebSocket('wss://api.hitbtc.com/api/2/ws')
         this.ws.onopen = () => this.state.symbols.forEach(s => this.subscribeTicker({symbol: s.id}))
         this.ws.onerror = err => console.log(err)
@@ -43,19 +44,41 @@ class PriceTable extends Component {
     }
 
     renderSwitcher(currency) {
-        const find = this.state.symbols.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
         let sorted
         if(currency === 'Favorites') {
-            sorted = find.filter(s => s.isFavorite === true)
+            sorted = this.state.symbols.filter(s => s.isFavorite)
         } else {
+            const find = this.state.symbols.filter(s => s.quoteCurrency.indexOf(currency) !== -1)
             sorted = find.sort((a, b) => b.volume - a.volume).slice(0, 10)
         }
-        //console.log(sorted)
-        return sorted.map((symbol, i) => <PriceLine key={i} symbol={symbol.id} last={symbol.last} volume={symbol.volume} show={this.showSymbol}/>)
+
+        return sorted.map((symbol, i) => 
+            <PriceLine 
+                key={i} 
+                symbol={symbol.id} 
+                last={symbol.last} 
+                volume={symbol.volume} 
+                fav={this.markAsFavorite}/>
+            )
+        }
+
+    markAsFavorite(symbol) {
+        let changedSymbols = [...this.state.symbols]
+        const index = changedSymbols.findIndex(s => s.id === symbol)
+        const fav = changedSymbols[index].isFavorite
+        changedSymbols[index].isFavorite = !fav
     }
 
-    showSymbol(symbol) {
-        console.log(symbol)
+    showCurrency(currency) {
+        let c
+        switch(currency) {
+            case '': c = 'USD'
+            break
+            case 'Favorites' : c = 'Quote'
+            break
+            default: c = currency
+        }
+        return c
     }
 
     render() {
@@ -65,7 +88,7 @@ class PriceTable extends Component {
                     <Col>IsFavorite</Col>
                     <Col>Name</Col>
                     <Col>Price</Col>
-                    <Col>Volume ({this.props.quoteCurrency || 'USD'})</Col>
+                    <Col>Volume ({this.showCurrency(this.props.quoteCurrency)})</Col>
                 </Row>
                 {
                     this.renderSwitcher(this.props.quoteCurrency)

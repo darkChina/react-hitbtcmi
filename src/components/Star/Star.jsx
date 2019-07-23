@@ -10,13 +10,17 @@ class Star extends Component {
        this.state = {
            selected: false
        }
+       this.clickHandler = this.clickHandler.bind(this)
     }
-//        this.clickHandler = this.clickHandler.bind(this)
-//    }
 
-//    clickHandler() {
-//         this.props.favorite()
-//     }
+
+    clickHandler() {
+        this.props.fav(this.props.symbol)
+        const select = this.state.selected
+        this.setState({selected: !select})
+    }
+
+
 
     render() {
         return <div onClick={this.clickHandler}>

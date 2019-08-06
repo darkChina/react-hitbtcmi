@@ -10,7 +10,7 @@ class Instruments extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            currency: ''
+            currency: 'USD'
         }
         this.clickHandler = this.clickHandler.bind(this)
     }

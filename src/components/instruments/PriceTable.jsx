@@ -69,6 +69,7 @@ class PriceTable extends Component {
         const index = changedSymbols.findIndex(s => s.id === symbol)
         const fav = changedSymbols[index].isFavorite
         changedSymbols[index].isFavorite = !fav
+        console.log(this.props.quoteCurrency)
     }
 
     showCurrency(currency) {

@@ -24,7 +24,7 @@ class Instruments extends Component{
     render() {
         return (
             <div className='Instruments'>
-                <SearchBar />
+                <SearchBar currency={this.state.currency}/>
                 <NavigationBar />
                 <NavCurrencies handleClick={this.clickHandler} />
                 <PriceTable quoteCurrency={this.state.currency}/>

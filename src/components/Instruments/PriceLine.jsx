@@ -11,11 +11,10 @@ const PriceLine = props => {
     return (
       
         <Row>     
-            <Col><Star fav={markAsFavorite} symbol={props.symbol} /></Col>       
+            <Col><Star fav={markAsFavorite} symbol={props.symbol} isFavorite={props.isFavorite}/></Col>       
             <Col>{props.symbol}</Col>
             <Col>{props.last}</Col>
             <Col>{props.volume}</Col>
-            <button onClick={() => console.log(props)}>Show props</button>
         </Row>
      
     )   

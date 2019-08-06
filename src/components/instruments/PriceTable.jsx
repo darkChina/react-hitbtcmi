@@ -10,11 +10,12 @@ class PriceTable extends Component {
             symbols: Symbols.map(s => 
                 Object.assign({
                     id: s.id, 
-                    quoteCurrency: s.quoteCurrency, 
+                    quoteCurrency: s.quoteCurrency,
                     last: 0, 
                     volume: 0, 
                     isFavorite: false
-                }))
+                })),
+            groupCurrency: ''
         }
         this.markAsFavorite = this.markAsFavorite.bind(this)
         this.renderSwitcher = this.renderSwitcher.bind(this)
@@ -57,7 +58,8 @@ class PriceTable extends Component {
                 key={i} 
                 symbol={symbol.id} 
                 last={symbol.last} 
-                volume={symbol.volume} 
+                volume={Math.round(symbol.volume * 100) / 100}
+                isFavorite={symbol.isFavorite} 
                 fav={this.markAsFavorite}/>
             )
         }

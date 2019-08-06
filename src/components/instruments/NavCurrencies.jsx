@@ -8,6 +8,7 @@ const NavCurrencies = props => {
 
     const clickHandler = currency => {
         props.handleClick(currency)
+        console.log(currency)
     }
 
     return (

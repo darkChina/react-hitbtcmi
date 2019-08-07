@@ -10,24 +10,28 @@ class Instruments extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            currency: 'USD'
+            currency: 'USD',
+            foundSymbols: []
         }
-        this.clickHandler = this.clickHandler.bind(this)
+        this.setCurrency = this.setCurrency.bind(this)
+        this.setFoundSymbols = this.setFoundSymbols.bind(this)
     }
 
-    clickHandler(currency) {
+    setCurrency(currency) {
         this.setState({currency})
     }
 
-
+    setFoundSymbols(foundSymbols) {
+        this.setState({foundSymbols})
+    }
 
     render() {
         return (
             <div className='Instruments'>
-                <SearchBar currency={this.state.currency}/>
+                <SearchBar currency={this.state.currency} findSymbols={this.setFoundSymbols}/>
                 <NavigationBar />
-                <NavCurrencies handleClick={this.clickHandler} />
-                <PriceTable quoteCurrency={this.state.currency}/>
+                <NavCurrencies handleClick={this.setCurrency} />
+                <PriceTable quoteCurrency={this.state.currency} foundSymbols={this.state.foundSymbols}/>
             </div>
         )
     }    

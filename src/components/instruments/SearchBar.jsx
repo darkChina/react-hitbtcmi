@@ -5,10 +5,16 @@ const SearchBar = props => {
 const [symbolsFound, findSymbols] = useState([])
 
 const changeHandler = event => {
+    
     event.preventDefault()
+
     const symbolsByCurrency = Symbols.filter(s => s.quoteCurrency === props.currency)
+
     const find = symbolsByCurrency.filter(s => s.id.indexOf(event.target.value) !== -1)
-    findSymbols(event.target.value !== '' ? find : [])  
+
+    findSymbols(event.target.value !== '' ? find : [])
+
+    props.findSymbols(symbolsFound)
 }
 
     return (

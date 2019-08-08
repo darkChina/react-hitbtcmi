@@ -16,11 +16,15 @@ const [symbolsFound, findSymbols] = useState([])
 
         props.setFoundSymbols(symbolsFound)
     }
-    
+    console.log(symbolsFound)
     return (
         <div>
-            <input type='text' placeholder='Search...' onChange={changeHandler}/>
-            <h3>{symbolsFound.map(s => s.id + ' ')}</h3>
+            <input type='text' placeholder='Search...' onChange={changeHandler} list='symbols-datalist'/>
+            <datalist id='symbols-datalist'>
+            {
+                symbolsFound.map((symbol, i) => <option key={i} value={symbol.id}></option>)
+            }
+            </datalist>
         </div>
     )
 }

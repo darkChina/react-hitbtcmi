@@ -2,21 +2,13 @@ import React, { useState } from 'react'
 import Symbols from './symbols.json'
 
 const SearchBar = props => {
-const [symbolsFound, findSymbols] = useState([])
-
-    const changeHandler = event => {
-
+const [symbolsFound, findSymbols] = useState(Symbols.filter(s => s.quoteCurrency === props.currency))
+const changeHandler = event => {
         event.preventDefault()
-
-        const symbolsByCurrency = Symbols.filter(s => s.quoteCurrency === props.currency)
-
-        const find = symbolsByCurrency.filter(s => s.id.indexOf(event.target.value) !== -1)
-
-        findSymbols(event.target.value !== '' ? find : [])
-
-        props.setFoundSymbols(symbolsFound)
+        const find = symbolsFound.filter(s => s.id.indexOf(event.target.value) !== -1)
+        findSymbols(find)
     }
-    console.log(symbolsFound)
+
     return (
         <div>
             <input type='text' placeholder='Search...' onChange={changeHandler} list='symbols-datalist'/>
